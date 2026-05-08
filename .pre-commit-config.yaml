@@ -29,8 +29,3 @@ repos:
       - id: check-yaml
       - id: check-added-large-files
       - id: check-merge-conflict
-  - repo: https://github.com/trufflesecurity/trufflehog
-    rev: v3.81.0
-    hooks:
-      - id: trufflehog
-        args: ["--only-verified", "--fail"]

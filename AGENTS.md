@@ -1,6 +1,6 @@
-# CLAUDE.md — Qalita Helm
+# AGENTS.md — Qalita Helm
 
-Ce fichier fournit des instructions à Claude Code et Roo Code pour travailler sur ce dépôt.
+Ce fichier fournit des instructions aux agents IA pour travailler sur ce dépôt.
 
 ## Projet
 

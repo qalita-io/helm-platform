@@ -73,7 +73,7 @@ With `cluster.domain`=**example.com**  Creates the following endpoints:
 | frontend.telemetryDisabled | string | `1` | Prevent NextJS framework to send telemetry data to Vercel Servers |
 | frontend.webPackPolling | bool | `false` | Prevent webpack to update its compiled content, used only in dev mode |
 | frontend.mode | string | `production` | The running mode of the platform, can be <DEV/PROD/DEMO> |
-| frontend.image.repository | string | `ghcr.io/qalita-io/qalita/frontend` | QALITA Frontend Image Repository |
+| frontend.image.repository | string | `ghcr.io/qalita-io/platform-frontend` | QALITA Frontend Image Repository |
 | frontend.image.tag | string | `2.3.2` | QALITA Frontend Image Tag |
 | frontend.image.pullPolicy | string | `Always` | QALITA Frontend Image Pull Policy |
 | frontend.replicaCount | int | `1` | QALITA Frontend Replica Count |
@@ -104,7 +104,7 @@ With `cluster.domain`=**example.com**  Creates the following endpoints:
 | backend.api.port | int | `3080` | Backend API exposed Port |
 | backend.api.host | string | `0.0.0.0` | Ip address Backend is exposed to |
 | backend.api.worker | int | `4` | Number of process bootstrapped  |
-| backend.image.repository | string | `ghcr.io/qalita-io/qalita/backend` | QALITA Backend Image Repository |
+| backend.image.repository | string | `ghcr.io/qalita-io/platform-backend` | QALITA Backend Image Repository |
 | backend.image.tag | string | `2.3.2` | QALITA Backend Image Tag |
 | backend.image.pullPolicy | string | `Always` | QALITA Backend Image Pull Policy |
 | backend.replicaCount | int | `1` | QALITA Backend Replica Count |
@@ -142,7 +142,7 @@ With `cluster.domain`=**example.com**  Creates the following endpoints:
 | worker.initscript | string | `echo hello world` | Qalita Worker init script helps add custom instructions before launching worker, can be used to mount cifs remote path or other actions |
 | worker.mode | string | `worker` | Qalita Worker mode <job/worker> |
 | worker.token | string | `changeme` | Qalita Worker API Token |
-| worker.image.repository | string | `ghcr.io/qalita-io/qalita/worker` | QALITA Worker image (GitHub Container Registry) |
+| worker.image.repository | string | `ghcr.io/qalita-io/qalita-cli` | QALITA Worker image (GitHub Container Registry) |
 | worker.image.tag | string | `2.11.0` | QALITA Worker Image Tag |
 | worker.image.pullPolicy | string | `IfNotPresent` | QALITA Worker Image Pull Policy |
 | worker.replicaCount | int | `1` | QALITA Worker Replica Count |
@@ -157,7 +157,7 @@ With `cluster.domain`=**example.com**  Creates the following endpoints:
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | doc.enabled | bool | `true` | Enabling doc deployment |
-| doc.image.repository | string | `ghcr.io/qalita-io/qalita/doc` | QALITA Doc Image Repository |
+| doc.image.repository | string | `ghcr.io/qalita-io/documentation` | QALITA Doc Image Repository |
 | doc.image.tag | string | `2.3.2` | QALITA Doc Image Tag |
 | doc.image.pullPolicy | string | `Always` | QALITA Doc Image Pull Policy |
 | doc.replicaCount | int | `1` | QALITA Doc Replica Count |

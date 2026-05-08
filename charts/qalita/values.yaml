@@ -14,7 +14,7 @@ dockerregistry:
 
 frontend:
   image:
-    repository: ghcr.io/qalita-io/qalita/frontend
+    repository: ghcr.io/qalita-io/platform-frontend
     tag: "2.11.6"
     pullPolicy: IfNotPresent
 
@@ -45,7 +45,7 @@ frontend:
 doc:
   enabled: true
   image:
-    repository: ghcr.io/qalita-io/qalita/doc
+    repository: ghcr.io/qalita-io/documentation
     tag: "2.11.0"
     pullPolicy: IfNotPresent
 
@@ -69,7 +69,7 @@ doc:
 
 backend:
   image:
-    repository: ghcr.io/qalita-io/qalita/backend
+    repository: ghcr.io/qalita-io/platform-backend
     tag: "2.11.6"
     pullPolicy: IfNotPresent
 
@@ -169,7 +169,7 @@ worker:
   token: "changeme"
 
   image:
-    repository: ghcr.io/qalita-io/qalita/worker
+    repository: ghcr.io/qalita-io/qalita-cli
     tag: "2.11.0"
     pullPolicy: IfNotPresent
 

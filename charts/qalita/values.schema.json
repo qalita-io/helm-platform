@@ -46,7 +46,7 @@
         "image": {
           "type": "object",
           "properties": {
-            "repository": { "type": "string", "default": "ghcr.io/qalita-io/qalita/frontend" },
+            "repository": { "type": "string", "default": "ghcr.io/qalita-io/platform-frontend" },
             "tag": { "type": "string", "default": "2.1.8" },
             "pullPolicy": { "type": "string", "default": "IfNotPresent" }
           }
@@ -102,7 +102,7 @@
         "image": {
           "type": "object",
           "properties": {
-            "repository": { "type": "string", "default": "ghcr.io/qalita-io/qalita/doc" },
+            "repository": { "type": "string", "default": "ghcr.io/qalita-io/documentation" },
             "tag": { "type": "string", "default": "2.1.7" },
             "pullPolicy": { "type": "string", "default": "IfNotPresent" }
           }
@@ -150,7 +150,7 @@
         "image": {
           "type": "object",
           "properties": {
-            "repository": { "type": "string", "default": "ghcr.io/qalita-io/qalita/backend" },
+            "repository": { "type": "string", "default": "ghcr.io/qalita-io/platform-backend" },
             "tag": { "type": "string", "default": "2.1.8" },
             "pullPolicy": { "type": "string", "default": "IfNotPresent" }
           }
@@ -272,7 +272,7 @@
         "image": {
           "type": "object",
           "properties": {
-            "repository": { "type": "string", "default": "ghcr.io/qalita-io/qalita/worker" },
+            "repository": { "type": "string", "default": "ghcr.io/qalita-io/qalita-cli" },
             "tag": { "type": "string", "default": "2.11.0" },
             "pullPolicy": { "type": "string", "default": "IfNotPresent" }
           }
@@ -504,5 +504,3 @@
     }
   }
 }
-
-

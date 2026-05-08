@@ -1,0 +1,36 @@
+default_language_version:
+  python: python3
+exclude: >
+  (?x)^(
+    node_modules/|
+    \.next/|
+    dist/|
+    build/|
+    vendor/|
+    \.venv/|
+    venv/|
+    env/|
+    \.git/|
+    \.pytest_cache/|
+    __pycache__/|
+    .*\.min\.js$|
+    .*\.min\.css$|
+    .*\.pyc$|
+    .*\.so$|
+    .*\.dll$|
+    .*\.exe$
+  )
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+      - id: check-merge-conflict
+  - repo: https://github.com/trufflesecurity/trufflehog
+    rev: v3.81.0
+    hooks:
+      - id: trufflehog
+        args: ["--only-verified", "--fail"]

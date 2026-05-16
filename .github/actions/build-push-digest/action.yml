@@ -1,0 +1,63 @@
+name: Build and Push Docker Image by Digest
+description: Build Docker image and push by digest for multi-arch manifests
+
+inputs:
+  context:
+    description: 'Build context path'
+    required: true
+  file:
+    description: 'Dockerfile path'
+    required: true
+  platform:
+    description: 'Target platform (linux/amd64 or linux/arm64)'
+    required: true
+  image-name:
+    description: 'Full image name (registry/org/image)'
+    required: true
+  build-args:
+    description: 'Build args (optional)'
+    required: false
+    default: ''
+
+outputs:
+  digest:
+    description: 'Image digest'
+    value: ${{ steps.build.outputs.digest }}
+
+runs:
+  using: composite
+  steps:
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v4
+      with:
+        registry: ghcr.io
+        username: ${{ github.repository_owner }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build and push by digest
+      id: build
+      uses: docker/build-push-action@v7
+      with:
+        context: ${{ inputs.context }}
+        file: ${{ inputs.file }}
+        platforms: ${{ inputs.platform }}
+        build-args: ${{ inputs.build-args }}
+        outputs: type=image,name=${{ inputs.image-name }},push-by-digest=true,name-canonical=true,push=true
+        provenance: false
+        sbom: false
+
+    - name: Export digest
+      shell: bash
+      run: |
+        rm -rf /tmp/digests
+        mkdir -p /tmp/digests
+        digest="${{ steps.build.outputs.digest }}"
+        touch "/tmp/digests/${digest#sha256:}"
+
+    - name: Upload digest
+      uses: actions/upload-artifact@v7
+      with:
+        name: digests-${{ inputs.platform == 'linux/amd64' && 'amd64' || 'arm64' }}
+        path: /tmp/digests/*
+        if-no-files-found: error
+        retention-days: 1

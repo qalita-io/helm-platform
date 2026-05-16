@@ -1,10 +1,10 @@
-# AGENTS.md — Qalita Helm
+# AGENTS.md — Qalita Helm Platform
 
 Ce fichier fournit des instructions aux agents IA pour travailler sur ce dépôt.
 
 ## Projet
 
-**Qalita Helm** — Charts Helm pour déployer la plateforme Qalita sur Kubernetes.
+**Qalita Helm Platform** — Charts Helm pour déployer la plateforme Qalita sur Kubernetes.
 
 - **Organisation GitHub** : `qalita-io`
 - **Cluster K8s** : `raspberry-pi-cluster`
@@ -13,7 +13,7 @@ Ce fichier fournit des instructions aux agents IA pour travailler sur ce dépôt
 ## Architecture
 
 ```
-helm/
+helm-platform/
 ├── charts/
 │   └── qalita/        # Chart principal de la plateforme
 │       ├── templates/  # Templates Helm

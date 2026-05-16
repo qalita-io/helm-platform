@@ -4,7 +4,7 @@
   <img width="250px" height="auto" src="https://app.platform.qalita.io/logo.svg" style="max-width:250px;"/>
 </p>
 
-[![Badge](https://github.com/qalita-io/helm/workflows/Release%20Charts/badge.svg?branch=main)](https://github.com//qalita-io/helm/actions)
+[![Badge](https://github.com/qalita-io/helm-platform/workflows/Release%20Charts/badge.svg?branch=main)](https://github.com//qalita-io/helm-platform/actions)
 [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/qalita)](https://artifacthub.io/packages/search?repo=qalita)
 
 Welcome to QALITA's charts repository. All charts are in the charts directory.
@@ -26,7 +26,7 @@ To dev the helm charts you can use a docker image :
 docker run -d --rm -v $(pwd):/apps -w /apps \
     -v ~/.kube:/root/.kube -v ~/.helm:/root/.helm -v ~/.config/helm:/root/.config/helm \
     -v ~/.cache/helm:/root/.cache/helm \
-    -v ~/helm/:/root/helm \
+     -v ~/helm-platform/:/root/helm-platform \
     --entrypoint sh \
     alpine/helm -c "sleep infinity"
 ```

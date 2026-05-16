@@ -11,11 +11,12 @@ cluster:
 
 dockerregistry:
   enabled: true
+  deploySecret: true
 
 frontend:
   image:
-    repository: ghcr.io/qalita-io/platform-frontend
-    tag: "2.11.6"
+    repository: ghcr.io/qalita-io/qalita/frontend
+    tag: "2.15.1"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
@@ -45,8 +46,8 @@ frontend:
 doc:
   enabled: true
   image:
-    repository: ghcr.io/qalita-io/documentation
-    tag: "2.11.0"
+    repository: ghcr.io/qalita-io/qalita/doc
+    tag: "2.12.0"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
@@ -69,8 +70,8 @@ doc:
 
 backend:
   image:
-    repository: ghcr.io/qalita-io/platform-backend
-    tag: "2.11.6"
+    repository: ghcr.io/qalita-io/qalita/backend
+    tag: "2.15.1"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
@@ -169,8 +170,8 @@ worker:
   token: "changeme"
 
   image:
-    repository: ghcr.io/qalita-io/qalita-cli
-    tag: "2.11.0"
+    repository: ghcr.io/qalita-io/qalita/worker
+    tag: "2.12.0"
     pullPolicy: IfNotPresent
 
   replicaCount: 1

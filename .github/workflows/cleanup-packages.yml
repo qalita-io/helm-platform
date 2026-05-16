@@ -1,4 +1,4 @@
-name: Cleanup Old Packages
+name: "Maintenance: Cleanup Packages"
 
 on:
   schedule:

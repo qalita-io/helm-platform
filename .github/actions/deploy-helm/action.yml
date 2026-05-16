@@ -20,6 +20,12 @@ inputs:
     description: 'GitHub environment (for deployment protection)'
     required: false
     default: ''
+  infisical-client-id:
+    description: 'Infisical Client ID'
+    required: true
+  infisical-client-secret:
+    description: 'Infisical Client Secret'
+    required: true
 
 runs:
   using: composite
@@ -28,8 +34,8 @@ runs:
       uses: Infisical/secrets-action@v1.0.16
       with:
         method: universal
-        client-id: ${{ secrets.INFISICAL_CLIENT_ID }}
-        client-secret: ${{ secrets.INFISICAL_CLIENT_SECRET }}
+        client-id: ${{ inputs.infisical-client-id }}
+        client-secret: ${{ inputs.infisical-client-secret }}
         project-slug: kubernetes
         env-slug: prod
         domain: https://vault.armandleopold.fr

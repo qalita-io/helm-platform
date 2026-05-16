@@ -10,6 +10,9 @@ inputs:
     description: 'Number of recent artifacts to skip'
     required: false
     default: '3'
+  github-token:
+    description: 'GitHub token'
+    required: true
 
 runs:
   using: composite
@@ -19,4 +22,4 @@ runs:
       with:
         age: ${{ inputs.age }}
         skip-recent: ${{ inputs.skip-recent }}
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ inputs.github-token }}

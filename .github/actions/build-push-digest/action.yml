@@ -43,19 +43,29 @@ runs:
       with:
         context: ${{ inputs.context }}
         file: ${{ inputs.file }}
-        platforms: ${{ inputs.platform }}
+        platforms: ${{ inputs.platforms }}
         build-args: ${{ inputs.build-args }}
-        outputs: type=image,name=${{ inputs.image-name }},push-by-digest=true,name-canonical=true,push=true
+        push: true
+        tags: ${{ inputs.image-name }}:platform-${{ inputs.platforms == 'linux/amd64' && 'amd64' || 'arm64' }}-${{ github.run_id }}
         provenance: false
         sbom: false
 
     - name: Export digest
       shell: bash
       run: |
+        digest="${{ steps.build.outputs.digest }}"
+        echo "Digest: $digest"
         rm -rf /tmp/digests
         mkdir -p /tmp/digests
-        digest="${{ steps.build.outputs.digest }}"
-        touch "/tmp/digests/${digest#sha256:}"
+        echo "${digest#sha256:}" > /tmp/digests/digest
+
+    - name: Upload digest
+      uses: actions/upload-artifact@v4
+      with:
+        name: digest-${{ inputs.platforms == 'linux/amd64' && 'amd64' || 'arm64' }}-${{ github.run_id }}
+        path: /tmp/digests/digest
+        if-no-files-found: error
+        retention-days: 1
 
     - name: Upload digest
       uses: actions/upload-artifact@v4

@@ -20,11 +20,8 @@ inputs:
     description: 'GitHub environment (for deployment protection)'
     required: false
     default: ''
-  infisical-client-id:
-    description: 'Infisical Client ID'
-    required: true
-  infisical-client-secret:
-    description: 'Infisical Client Secret'
+  kubeconfig:
+    description: 'Kubeconfig content'
     required: true
 
 runs:
@@ -33,29 +30,18 @@ runs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Fetch Infisical secrets
-      uses: Infisical/secrets-action@v1.0.16
-      with:
-        method: universal
-        client-id: ${{ inputs.infisical-client-id }}
-        client-secret: ${{ inputs.infisical-client-secret }}
-        project-slug: kubernetes
-        env-slug: prod
-        domain: https://vault.armandleopold.fr
-
     - name: Set up Helm
       uses: azure/setup-helm@v4
       with:
         version: "3.18.2"
 
-    - name: Set up kubectl
-      uses: azure/setup-kubectl@v4
+
 
     - name: Configure kubeconfig
       shell: bash
       run: |
         mkdir -p ~/.kube
-        printf '%s' "$kubeconfig" > ~/.kube/config
+        printf '%s' "${{ inputs.kubeconfig }}" > ~/.kube/config
         chmod 600 ~/.kube/config
 
     - name: Update Helm dependencies

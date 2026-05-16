@@ -27,7 +27,7 @@ runs:
       uses: actions/download-artifact@v4
       with:
         path: /tmp/digests
-        pattern: digests-*
+        pattern: digest-*
         merge-multiple: true
 
     - name: Set up Docker Buildx
@@ -42,18 +42,24 @@ runs:
 
     - name: Create manifest
       shell: bash
-      working-directory: /tmp/digests
       run: |
         TAG="${{ inputs.tag }}"
         IMAGE="${{ inputs.image-name }}"
 
-        DIGESTS=$(printf "${IMAGE}@sha256:%s " *)
+        echo "Debug: Creating manifest for $IMAGE:$TAG"
 
-        docker buildx imagetools create -t ${IMAGE}:${TAG} ${DIGESTS}
+        # Create multi-arch manifest using the tagged images
+        docker buildx imagetools create -t ${IMAGE}:${TAG} \
+          ${IMAGE}:platform-amd64-${{ github.run_id }} \
+          ${IMAGE}:platform-arm64-${{ github.run_id }}
 
         if [ "${{ inputs.is-latest }}" == "true" ]; then
-          docker buildx imagetools create -t ${IMAGE}:latest ${DIGESTS}
+          docker buildx imagetools create -t ${IMAGE}:latest \
+            ${IMAGE}:platform-amd64-${{ github.run_id }} \
+            ${IMAGE}:platform-arm64-${{ github.run_id }}
         fi
+
+        echo "Manifest created successfully"
 
     - name: Inspect manifest
       shell: bash

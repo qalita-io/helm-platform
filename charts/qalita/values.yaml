@@ -15,8 +15,8 @@ dockerregistry:
 
 frontend:
   image:
-    repository: ghcr.io/qalita-io/qalita/frontend
-    tag: "2.15.1"
+    repository: ghcr.io/qalita-io/qalita/platform-frontend
+    tag: "2.16.0"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
@@ -46,8 +46,8 @@ frontend:
 doc:
   enabled: true
   image:
-    repository: ghcr.io/qalita-io/qalita/doc
-    tag: "2.12.0"
+    repository: ghcr.io/qalita-io/qalita/documentation
+    tag: "2.13.0"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
@@ -70,14 +70,11 @@ doc:
 
 backend:
   image:
-    repository: ghcr.io/qalita-io/qalita/backend
-    tag: "2.15.1"
+    repository: ghcr.io/qalita-io/qalita/platform-backend
+    tag: "2.16.0"
     pullPolicy: IfNotPresent
 
   replicaCount: 1
-
-  # Override public doc URL (defaults to https://doc.<cluster.domain>)
-  # publicDocUrl: "https://doc.qalita.io"
 
   organization:
     name: "local"

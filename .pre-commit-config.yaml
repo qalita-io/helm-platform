@@ -22,7 +22,7 @@ exclude: >
   )
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
+    rev: v5.0.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
@@ -30,3 +30,13 @@ repos:
         exclude: ^charts/.*/templates/.*\.yaml$
       - id: check-added-large-files
       - id: check-merge-conflict
+
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.24.3
+    hooks:
+      - id: gitleaks
+        name: Gitleaks protect (staged)
+        entry: bash -c 'if command -v gitleaks >/dev/null 2>&1; then gitleaks protect --staged --verbose; else echo "gitleaks not installed, skipping"; fi'
+        language: system
+        pass_filenames: false
+        stages: [pre-commit]

@@ -15,7 +15,7 @@ dockerregistry:
 
 frontend:
   image:
-    repository: ghcr.io/qalita-io/qalita/platform-frontend
+    repository: ghcr.io/qalita-io/platform-frontend
     tag: "2.16.0"
     pullPolicy: IfNotPresent
 
@@ -46,7 +46,7 @@ frontend:
 doc:
   enabled: true
   image:
-    repository: ghcr.io/qalita-io/qalita/documentation
+    repository: ghcr.io/qalita-io/documentation
     tag: "2.13.0"
     pullPolicy: IfNotPresent
 
@@ -70,7 +70,7 @@ doc:
 
 backend:
   image:
-    repository: ghcr.io/qalita-io/qalita/platform-backend
+    repository: ghcr.io/qalita-io/platform-backend
     tag: "2.16.0"
     pullPolicy: IfNotPresent
 

@@ -167,8 +167,8 @@ worker:
   token: "changeme"
 
   image:
-    repository: ghcr.io/qalita-io/qalita/worker
-    tag: "2.12.0"
+    repository: ghcr.io/qalita-io/qalita-cli
+    tag: "2.13.0"
     pullPolicy: IfNotPresent
 
   replicaCount: 1

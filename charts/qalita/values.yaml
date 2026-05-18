@@ -179,7 +179,8 @@ worker:
 
   initscript: |
     #!/bin/bash
-    echo "Hello World"
+    echo "Worker agent starting..."
+    qalita worker login
 
   deployment:
     resources:

@@ -25,6 +25,7 @@ spec:
       containers:
         - name: cli
           image: "{{ .Values.worker.image.repository }}:{{ .Values.worker.image.tag }}"
+          imagePullPolicy: {{ .Values.worker.image.pullPolicy }}
           command: ["/bin/sh", "-c"]
           args: ["cat /etc/config/init.sh | /bin/sh; sleep infinity"]
           env:
@@ -56,6 +57,7 @@ spec:
 {{- end }}
         - name: worker
           image: "{{ .Values.worker.image.repository }}:{{ .Values.worker.image.tag }}"
+          imagePullPolicy: {{ .Values.worker.image.pullPolicy }}
           command: ["/bin/sh", "-c"]
           args: ["cat /etc/config/init.sh | /bin/sh; qalita worker run"]
           env:

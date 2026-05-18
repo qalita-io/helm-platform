@@ -168,7 +168,7 @@ worker:
 
   image:
     repository: ghcr.io/qalita-io/qalita-cli
-    tag: "2.13.0"
+    tag: "2.13.2"
     pullPolicy: IfNotPresent
 
   replicaCount: 1

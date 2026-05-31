@@ -54,3 +54,54 @@ jobs:
           config: cr.yaml
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+  # Enrichit les notes des releases créées par chart-releaser avec un changelog
+  # git-cliff (commits conventionnels) entre la version courante de chaque chart
+  # et la précédente. N'altère ni le packaging ni la signature des charts.
+  release-notes:
+    needs: release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout (full history + tags)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install git-cliff
+        run: |
+          VERSION=2.13.1
+          curl -sSL "https://github.com/orhun/git-cliff/releases/download/v${VERSION}/git-cliff-${VERSION}-x86_64-unknown-linux-gnu.tar.gz" | tar -xz
+          echo "${GITHUB_WORKSPACE}/git-cliff-${VERSION}-x86_64-unknown-linux-gnu" >> "$GITHUB_PATH"
+
+      - name: Enrich release notes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          git fetch --tags --force --quiet
+          for chartdir in charts/*/; do
+            chart=$(basename "$chartdir")
+            version=$(grep -E '^version:' "$chartdir/Chart.yaml" | head -1 | awk '{gsub(/["\x27]/,"",$2); print $2}')
+            tag="${chart}-${version}"
+            if ! gh release view "$tag" >/dev/null 2>&1; then
+              echo "Pas de release pour $tag, on ignore."; continue
+            fi
+            # Tag de version précédente du MÊME chart (tri sémantique).
+            prev=""
+            mapfile -t vts < <(git tag --list "${chart}-*" --sort=version:refname)
+            for i in "${!vts[@]}"; do
+              if [ "${vts[$i]}" = "$tag" ] && [ "$i" -gt 0 ]; then prev="${vts[$((i-1))]}"; fi
+            done
+            if [ -z "$prev" ]; then
+              root=$(git rev-list --max-parents=0 "$tag" | tail -1); range="${root}..${tag}"
+            else
+              range="${prev}..${tag}"
+            fi
+            git-cliff --config cliff.toml "$range" --strip all > notes.md || true
+            [ -s notes.md ] || echo "_Pas de changement notable (commits ci/chore/docs uniquement)._" > notes.md
+            id=$(gh api "repos/${GITHUB_REPOSITORY}/releases/tags/${tag}" --jq .id)
+            gh api -X PATCH "repos/${GITHUB_REPOSITORY}/releases/${id}" -F "body=@notes.md" >/dev/null
+            echo "Notes mises à jour pour $tag (plage ${range})."
+          done
